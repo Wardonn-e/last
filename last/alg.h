@@ -51,6 +51,7 @@ namespace algorithm {
         {
             for (int i = 0; i + step < mass.size(); i++)
             {
+                
                 cur_stat.comparison_count++;
                 if (mass[i] > mass[i + step])
                 {
