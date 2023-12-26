@@ -63,6 +63,33 @@ namespace algorithm {
         }
         return cur_stat;
     }
+    template<typename T>
+    stats shaker_sort(vector<T>& mass) {
+        stats cur_stat;
+        int control = static_cast<int>(mass.size() - 1);
+        int left = 0, right = control;
+        do {
+            for (int i = left; i < right; i++) {
+                cur_stat.comparison_count++;
+                if (mass[i] > mass[i + 1]) {
+                    cur_stat.copy_count++;
+                    std::swap(mass[i], mass[i + 1]);
+                    control = i;
+                }
+            }
+            right = control;
+            for (int i = right; i > left; i--) {
+                cur_stat.comparison_count++;
+                if (mass[i] < mass[i - 1]) {
+                    cur_stat.copy_count++;
+                    std::swap(mass[i], mass[i - 1]);
+                    control = i;
+                }
+            }
+            left = control;
+        } while (left < right);
+        return cur_stat;
+    }
 }
 
 #endif /* alg_h */
