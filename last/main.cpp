@@ -6,9 +6,9 @@
 //
 
 #include <iostream>
-
+#include "alg.h"
+using namespace algorithm;
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    int seed = 777;
     return 0;
 }
