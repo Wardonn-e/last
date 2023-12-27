@@ -9,9 +9,9 @@
 #include "alg.h"
 using namespace algorithm;
 int main(int argc, const char * argv[]) {
-    int seed = 983747;
-    const int limit = 100;  // adjust the size of the array as needed
-    const int count = 1;   // adjust the number of tests as needed
+    int seed = 55687;
+    const int limit = 100;
+    const int count = 1;
 
     // Test with sorted input
     vector<algorithm::stats> bubble_sort_sorted_stats = algorithm::test_sort<int>(algorithm::bubble_sort, limit, count, 0, seed);

@@ -31,13 +31,6 @@ namespace algorithm {
         stream << val.comparison_count << " " << val.copy_count << endl;
         return stream;
     }
-    template<typename T>
-    fstream& operator<<(fstream& stream, vector<T> val) {
-        for (int i = 0; i < val.size(); i++) {
-            stream << val[i];
-        }
-        return stream;
-    }
 
     template<typename T>
     ostream& operator<<(ostream& stream, vector<T> val) {
@@ -63,7 +56,6 @@ namespace algorithm {
         vector<int> vals = { 1,2,3,4,5,6,7,8,9,10,25,50,100 };
         if (file) {
             for (int i = 0; i < vals.size(); i++) {
-                /*cout << vals[i] * 1000 << endl;*/
                 vector<stats> res = test_sort(func, vals[i] * 1000, count, sort_type, seed);
                 file << vals[i] * 1000 << " ";
                 file << average(res);
@@ -77,9 +69,11 @@ namespace algorithm {
     
     template<typename T>
     vector<stats> test_sort(stats func(vector<T>&), int limit, int count, int mass_type, int seed) {
-        //0 - sort; 1 - unsorted; 2 - random
+        //0 - sort; 
+        //1 - unsorted;
+        //2 - random;
         vector<stats> results;
-        int seed_helper = 0;
+        int seed_h = 0;
         for (int i = 0; i <= count - 1; i++) {
             vector<int> mass;
             switch (mass_type)
@@ -96,8 +90,8 @@ namespace algorithm {
                 break;
             case 2:
                 for (int j = 0; j < limit; j++) {
-                    mass.push_back(generate_random_number(1, 100, seed+seed_helper));
-                    seed_helper++;
+                    mass.push_back(generate_random_number(1, 100, seed+seed_h));
+                    seed_h++;
                 }
                 break;
             }
@@ -124,6 +118,7 @@ namespace algorithm {
         }
         return cur_stat;
     }
+
     template<typename T>
     stats comb_sort(vector<T>& mass) {
         stats cur_stat;
@@ -131,12 +126,9 @@ namespace algorithm {
         size_t step = mass.size() - 1;
         while (step >= 1)
         {
-            for (int i = 0; i + step < mass.size(); i++)
-            {
-                
+            for (int i = 0; i + step < mass.size(); i++) {
                 cur_stat.comparison_count++;
-                if (mass[i] > mass[i + step])
-                {
+                if (mass[i] > mass[i + step]) {
                     cur_stat.copy_count++;
                     std::swap(mass[i], mass[i + step]);
                 }
@@ -145,10 +137,11 @@ namespace algorithm {
         }
         return cur_stat;
     }
+
     template<typename T>
     stats shaker_sort(vector<T>& mass) {
         stats cur_stat;
-        int control = static_cast<int>(mass.size() - 1);
+        int control = (mass.size() - 1);
         int left = 0, right = control;
         do {
             for (int i = left; i < right; i++) {
@@ -156,7 +149,7 @@ namespace algorithm {
                 if (mass[i] > mass[i + 1]) {
                     cur_stat.copy_count++;
                     std::swap(mass[i], mass[i + 1]);
-                    control = i;
+                    control = i; // Обновляем индекс контроля
                 }
             }
             right = control;
@@ -173,5 +166,7 @@ namespace algorithm {
         return cur_stat;
     }
 }
+
+
 
 #endif /* alg_h */
